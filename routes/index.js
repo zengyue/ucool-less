@@ -11,7 +11,7 @@ var path = require('path'),
 	spawn = childProcess.spawn,
 	lessc;
 
-var basepath = 'Y:/u_supermall0802/apps/lpmall/supermall/list/1.0';
+var basepath = 'Y:/u_sm0903/apps/lpmall/supermall/home/1.0';
 
 exports.index = function(req, res){
 	var url = req.url,
@@ -22,7 +22,9 @@ exports.index = function(req, res){
 		filepath = path.join(basepath, dirname, basename),
 		lessBasename,
 		lessFilepath;
+			
 
+	console.log(url);
 
 	//如果是css文件才去找.less文件
 	if (extname === '.css') {
@@ -30,7 +32,7 @@ exports.index = function(req, res){
 		lessFilepath = path.join(basepath, dirname, 'less', lessBasename);
 
 		//如果在同级目录的less文件夹中存在.less文件，则取.less文件进行编译输出
-		path.exists(lessFilepath, function (exists) {
+		fs.exists(lessFilepath, function (exists) {
 			if (exists) {
 				exec('lessc "' + lessFilepath + '"', function (error, stdout, stderr) {
 					if (error) {
